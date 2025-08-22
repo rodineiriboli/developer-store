@@ -9,18 +9,14 @@ COPY ["src/DeveloperStore.Application/DeveloperStore.Application.csproj", "src/D
 COPY ["src/DeveloperStore.Domain/DeveloperStore.Domain.csproj", "src/DeveloperStore.Domain/"]
 COPY ["src/DeveloperStore.Infrastructure/DeveloperStore.Infrastructure.csproj", "src/DeveloperStore.Infrastructure/"]
 
-# Restore dependencies and install EF tool
-RUN dotnet restore "./src/DeveloperStore.API/DeveloperStore.API.csproj" && \
-    dotnet tool install --global dotnet-ef
-
-# Add dotnet tools to PATH
-ENV PATH="$PATH:/root/.dotnet/tools"
+# Restore dependencies
+RUN dotnet restore "developer-store.sln"
 
 # Copy everything else
 COPY . .
 
 # Build the application
-WORKDIR "/src/src/DeveloperStore.API"
+WORKDIR "/src/DeveloperStore.API"
 RUN dotnet build -c Release -o /app/build
 
 # Publish the application
@@ -28,22 +24,9 @@ FROM build AS publish
 RUN dotnet publish -c Release -o /app/publish
 
 # Runtime stage
-FROM mcr.microsoft.com/dotnet/sdk:8.0 AS final
+FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS final
 WORKDIR /app
-
-# Copy published application
 COPY --from=publish /app/publish .
-
-# Install EF tool
-RUN dotnet tool install --global dotnet-ef
-ENV PATH="$PATH:/root/.dotnet/tools"
-
-# Install netcat para verificar conexão com banco
-RUN apt-get update && apt-get install -y netcat-openbsd && rm -rf /var/lib/apt/lists/*
-
-# Copy entrypoint script
-COPY src/DeveloperStore.API/entrypoint.sh /app/entrypoint.sh
-RUN chmod +x /app/entrypoint.sh
 
 # Create SSL certificate directory and set permissions
 RUN mkdir -p /https && chmod 700 /https
@@ -53,5 +36,4 @@ EXPOSE 80
 EXPOSE 443
 
 # Entry point
-ENTRYPOINT ["/app/entrypoint.sh"]
-CMD ["dotnet", "DeveloperStore.API.dll"]
+ENTRYPOINT ["dotnet", "DeveloperStore.API.dll"]
