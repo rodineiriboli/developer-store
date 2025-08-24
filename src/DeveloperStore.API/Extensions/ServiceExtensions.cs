@@ -5,6 +5,7 @@ using DeveloperStore.Domain.Interfaces;
 using DeveloperStore.Infrastructure.Data;
 using DeveloperStore.Infrastructure.Data.Repositories;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace DeveloperStore.API.Extensions
 {
@@ -15,21 +16,18 @@ namespace DeveloperStore.API.Extensions
             services.AddMediatR(cfg =>
                 cfg.RegisterServicesFromAssemblies(ApplicationAssembly.Assembly));
 
-            // Correção: Configurar AutoMapper corretamente
-            services.AddAutoMapper(typeof(MappingProfile)); // Passar o tipo, não o Assembly
+            services.AddAutoMapper(typeof(UserMappingProfile).Assembly);
 
             return services;
         }
 
-        public static IServiceCollection AddInfrastructureServices(
-            this IServiceCollection services,
-            IConfiguration configuration)
+        public static IServiceCollection AddInfrastructureServices(this IServiceCollection services, IConfiguration configuration)
         {
-            // Configurar DbContext
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseNpgsql(configuration.GetConnectionString("DefaultConnection")));
 
             // Registrar repositórios
+            services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<ISaleRepository, SaleRepository>();
 
             // Registrar Unit of Work

@@ -11,6 +11,8 @@ namespace DeveloperStore.Infrastructure.Data
 
         public DbSet<Sale> Sales { get; set; }
 
+        public DbSet<User> Users { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(ApplicationDbContext).Assembly);
