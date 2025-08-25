@@ -13,6 +13,7 @@ namespace DeveloperStore.Application.Mappings
                 .ForMember(dest => dest.Items, opt => opt.MapFrom(src => src.Items));
 
             CreateMap<SaleItem, SaleItemDto>()
+                .ForMember(dest => dest.Discount, opt => opt.MapFrom(src => src.Discount))
                 .ForMember(dest => dest.Product, opt => opt.MapFrom(src => src.Product));
 
             CreateMap<CustomerInfo, CustomerInfoDto>();

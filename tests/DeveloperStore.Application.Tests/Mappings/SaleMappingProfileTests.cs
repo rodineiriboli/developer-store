@@ -91,5 +91,21 @@ namespace DeveloperStore.Application.Tests.Mappings
             Assert.Equal(branchInfo.Name, branchInfoDto.Name);
             Assert.Equal(branchInfo.Location, branchInfoDto.Location);
         }
+
+        [Fact]
+        public void ShouldMapSaleItemToSaleItemDto_WithDiscount()
+        {
+            // Arrange
+            var product = new ProductInfo(Guid.NewGuid(), "Product 1", "Description 1");
+            var saleItem = new SaleItem(product, 5, 100m);
+            saleItem.ApplyDiscount(50m); // Aplica desconto
+
+            // Act
+            var saleItemDto = _mapper.Map<SaleItemDto>(saleItem);
+
+            // Assert
+            Assert.Equal(50m, saleItemDto.Discount);
+            Assert.Equal(450m, saleItemDto.TotalPrice); // (5 * 100) - 50
+        }
     }
 }
