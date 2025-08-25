@@ -1,6 +1,5 @@
 ﻿using DeveloperStore.Domain.Exceptions;
 using DeveloperStore.Domain.ValueObjects;
-using Xunit;
 
 namespace DeveloperStore.Domain.Tests.ValueObjects
 {

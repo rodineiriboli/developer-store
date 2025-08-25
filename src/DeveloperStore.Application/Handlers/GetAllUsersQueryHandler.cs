@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using DeveloperStore.Application.DTOs;
 using DeveloperStore.Application.Queries;
 using DeveloperStore.Domain.Interfaces;
 using MediatR;

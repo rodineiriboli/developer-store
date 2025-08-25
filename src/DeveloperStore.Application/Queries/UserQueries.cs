@@ -1,5 +1,4 @@
-﻿using DeveloperStore.Application.DTOs;
-using MediatR;
+﻿using MediatR;
 
 namespace DeveloperStore.Application.Queries
 {

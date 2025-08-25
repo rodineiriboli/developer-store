@@ -1,12 +1,10 @@
-﻿using Castle.Core.Configuration;
-using DeveloperStore.Application.Common.Interfaces;
+﻿using DeveloperStore.Application.Common.Interfaces;
 using DeveloperStore.Application.DTOs;
 using DeveloperStore.Domain.Entities;
 using DeveloperStore.Domain.Enums;
 using DeveloperStore.Domain.Interfaces;
 using DeveloperStore.Domain.ValueObjects;
 using DeveloperStore.Infrastructure.Services;
-using Microsoft.Extensions.Configuration;
 using NSubstitute;
 using Xunit;
 using IConfiguration = Microsoft.Extensions.Configuration.IConfiguration;

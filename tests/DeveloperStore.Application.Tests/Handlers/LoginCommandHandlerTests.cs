@@ -2,8 +2,6 @@
 using DeveloperStore.Application.Common.Interfaces;
 using DeveloperStore.Application.DTOs;
 using DeveloperStore.Application.Handlers;
-using DeveloperStore.Domain.Entities;
-using DeveloperStore.Domain.ValueObjects;
 using NSubstitute;
 using NSubstitute.ExceptionExtensions;
 using Xunit;

@@ -6,7 +6,6 @@ using DeveloperStore.Domain.ValueObjects;
 using NSubstitute;
 using Xunit;
 using AutoMapper;
-using DeveloperStore.Application.DTOs;
 
 namespace DeveloperStore.Application.Tests.Handlers
 {

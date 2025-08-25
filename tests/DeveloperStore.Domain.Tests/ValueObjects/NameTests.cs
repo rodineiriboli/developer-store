@@ -1,6 +1,4 @@
 ﻿using DeveloperStore.Domain.ValueObjects;
-using System.Xml.Linq;
-using Xunit;
 
 namespace DeveloperStore.Domain.Tests.ValueObjects
 {

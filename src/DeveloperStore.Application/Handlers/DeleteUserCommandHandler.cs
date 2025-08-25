@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using DeveloperStore.Application.Commands;
 using DeveloperStore.Application.Common.Interfaces;
-using DeveloperStore.Application.DTOs;
 using DeveloperStore.Domain.Interfaces;
 using MediatR;
 

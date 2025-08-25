@@ -2,7 +2,6 @@
 using System.Security.Claims;
 using System.Text;
 using DeveloperStore.Application.Common.Interfaces;
-using DeveloperStore.Application.DTOs;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 

@@ -1,6 +1,5 @@
 ﻿using DeveloperStore.Application.Common.Interfaces;
 using DeveloperStore.Application.DTOs;
-using DeveloperStore.Domain.Entities;
 using DeveloperStore.Domain.Enums;
 using DeveloperStore.Domain.Interfaces;
 using Microsoft.Extensions.Configuration;

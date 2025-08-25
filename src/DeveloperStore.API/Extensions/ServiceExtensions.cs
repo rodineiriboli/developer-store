@@ -6,7 +6,6 @@ using DeveloperStore.Infrastructure.Data;
 using DeveloperStore.Infrastructure.Data.Repositories;
 using DeveloperStore.Infrastructure.Services;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
 using System.Text;
 
 namespace DeveloperStore.API.Extensions

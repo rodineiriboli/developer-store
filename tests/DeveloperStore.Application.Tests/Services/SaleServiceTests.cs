@@ -1,6 +1,4 @@
-﻿using DeveloperStore.Domain.Entities;
-using DeveloperStore.Domain.ValueObjects;
-using Xunit;
+﻿using Xunit;
 
 namespace DeveloperStore.Application.Tests.Services
 {

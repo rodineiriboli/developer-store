@@ -1,8 +1,6 @@
 ﻿using DeveloperStore.Domain.Common;
 using DeveloperStore.Domain.Events;
 using DeveloperStore.Domain.Exceptions;
-using DeveloperStore.Domain.ValueObjects;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DeveloperStore.Domain.Entities
 {

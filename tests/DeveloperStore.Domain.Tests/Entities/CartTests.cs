@@ -1,6 +1,5 @@
 ﻿using DeveloperStore.Domain.Entities;
 using DeveloperStore.Domain.Exceptions;
-using Xunit;
 
 namespace DeveloperStore.Domain.Tests.Entities
 {

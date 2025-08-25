@@ -1,5 +1,4 @@
 ﻿using DeveloperStore.Application.Common.Interfaces;
-using DeveloperStore.Application.DTOs;
 using DeveloperStore.Domain.Enums;
 using DeveloperStore.Infrastructure.Services;
 using Microsoft.Extensions.Configuration;
@@ -89,28 +88,6 @@ namespace DeveloperStore.Application.Tests.Services
             // Assert
             Assert.False(isValid);
         }
-
-        //[Fact]
-        //public void GetUserIdFromToken_ShouldReturnUserId_ForValidToken()
-        //{
-        //    // Arrange
-        //    var userId = Guid.NewGuid();
-        //    var user = new UserDto
-        //    {
-        //        Id = userId,
-        //        Username = "testuser",
-        //        Email = "test@email.com",
-        //        Role = UserRole.Customer
-        //    };
-
-        //    var token = _tokenService.GenerateToken(user);
-
-        //    // Act
-        //    var extractedUserId = _tokenService.GetUserIdFromToken(token);
-
-        //    // Assert
-        //    Assert.Equal(userId.ToString(), extractedUserId);
-        //}
 
         [Fact]
         public void GenerateToken_ShouldIncludeAllClaims()
