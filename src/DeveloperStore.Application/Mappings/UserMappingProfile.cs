@@ -16,11 +16,11 @@ namespace DeveloperStore.Application.Mappings
 
             CreateMap<CreateUserDto, User>()
                 .ForMember(dest => dest.Id, opt => opt.Ignore())
-                .ForMember(dest => dest.Password, opt => opt.MapFrom(src => src.Password));
+                .ForMember(dest => dest.PasswordHash, opt => opt.MapFrom(src => src.Password));
 
             CreateMap<UpdateUserDto, User>()
                 .ForMember(dest => dest.Id, opt => opt.Ignore())
-                .ForMember(dest => dest.Password, opt => opt.Ignore());
+                .ForMember(dest => dest.PasswordHash, opt => opt.Ignore());
         }
     }
 }

@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.13.35931.197 d17.13
+VisualStudioVersion = 17.13.35931.197
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeveloperStore.API", "src\DeveloperStore.API\DeveloperStore.API.csproj", "{2E1A6820-5B5F-4161-A42B-E4448FB6B351}"
 EndProject
@@ -16,8 +16,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeveloperStore.Application.Tests", "tests\DeveloperStore.Application.Tests\DeveloperStore.Application.Tests.csproj", "{71466DE2-ECF8-4526-8858-EAB5D2F05D2A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeveloperStore.Domain.Tests", "tests\DeveloperStore.Domain.Tests\DeveloperStore.Domain.Tests.csproj", "{42DB25E7-2AF9-4CDD-A8BE-3328C37C304F}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeveloperStore.Integration.Tests", "tests\DeveloperStore.Integration.Tests\DeveloperStore.Integration.Tests.csproj", "{DF7C995B-A4E4-440E-ABFB-3CA875791B4A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -49,10 +47,6 @@ Global
 		{42DB25E7-2AF9-4CDD-A8BE-3328C37C304F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{42DB25E7-2AF9-4CDD-A8BE-3328C37C304F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{42DB25E7-2AF9-4CDD-A8BE-3328C37C304F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{DF7C995B-A4E4-440E-ABFB-3CA875791B4A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DF7C995B-A4E4-440E-ABFB-3CA875791B4A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DF7C995B-A4E4-440E-ABFB-3CA875791B4A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DF7C995B-A4E4-440E-ABFB-3CA875791B4A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -60,7 +54,6 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{71466DE2-ECF8-4526-8858-EAB5D2F05D2A} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 		{42DB25E7-2AF9-4CDD-A8BE-3328C37C304F} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
-		{DF7C995B-A4E4-440E-ABFB-3CA875791B4A} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7498212C-3372-4F24-A512-3BF6D9FCAFE0}

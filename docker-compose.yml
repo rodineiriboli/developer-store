@@ -1,10 +1,9 @@
 version: '3.8'
 
 services:
-  # Banco de dados PostgreSQL
   postgres:
-    image: postgres:15-alpine
-    container_name: developerstore-db
+    image: postgres:15
+    container_name: postgres-container-developer-store
     environment:
       POSTGRES_DB: DeveloperStore
       POSTGRES_USER: postgres
@@ -12,40 +11,9 @@ services:
     ports:
       - "5432:5432"
     volumes:
-      - postgres_data:/var/lib/postgresql/data
-      - ./scripts/init-db.sql:/docker-entrypoint-initdb.d/init-db.sql
-    networks:
-      - developerstore-network
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U postgres"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
-
-  # Aplicação .NET API
-  developerstore-api:
-    build:
-      context: .
-      dockerfile: src/DeveloperStore.API/Dockerfile
-    container_name: developerstore-api
-    environment:
-      - ASPNETCORE_ENVIRONMENT=Development
-      - ConnectionStrings__DefaultConnection=Host=postgres;Port=5432;Database=DeveloperStore;Username=postgres;Password=postgres@passRRamb11R@
-    ports:
-      - "5000:80"
-      - "5001:443"
-    depends_on:
-      postgres:
-        condition: service_healthy
-    networks:
-      - developerstore-network
-    volumes:
-      - ~/.aspnet/https:/https:ro
+      - postgres-data:/var/lib/postgresql/data
     restart: unless-stopped
 
 volumes:
-  postgres_data:
-
-networks:
-  developerstore-network:
-    driver: bridge
+  postgres-data:
+    driver: local

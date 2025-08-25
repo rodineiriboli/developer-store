@@ -37,7 +37,7 @@ namespace DeveloperStore.Domain.Tests.Entities
             // Assert
             Assert.Equal("john.doe@email.com", user.Email);
             Assert.Equal("johndoe", user.Username);
-            Assert.Equal("Password123", user.Password);
+            Assert.Equal("Password123", user.PasswordHash);
             Assert.Equal(_validName, user.Name);
             Assert.Equal(_validAddress, user.Address);
             Assert.Equal("+1234567890", user.Phone);
@@ -155,7 +155,7 @@ namespace DeveloperStore.Domain.Tests.Entities
             user.ChangePassword(newPassword);
 
             // Assert
-            Assert.Equal(newPassword, user.Password);
+            Assert.Equal(newPassword, user.PasswordHash);
         }
 
         [Fact]

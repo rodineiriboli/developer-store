@@ -1,0 +1,46 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:15
+    container_name: postgres-container-developer-store
+    environment:
+      POSTGRES_DB: DeveloperStore
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres@passRRamb11R@
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+      - ./init-database.sh:/docker-entrypoint-initdb.d/init-database.sh
+      - ./seed-data.sql:/docker-entrypoint-initdb.d/seed-data.sql
+    restart: unless-stopped
+
+  app:
+    build: .
+    container_name: developerstore-app
+    depends_on:
+      - postgres
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__DefaultConnection=Host=postgres;Port=5432;Database=developerstore;Username=postgres;Password=password
+    volumes:
+      - .:/app
+      - ~/.nuget/packages:/root/.nuget/packages
+    command: >
+      sh -c "
+      echo 'Waiting for PostgreSQL to be ready...' &&
+      until pg_isready -h postgres -p 5432 -U postgres; do sleep 2; done &&
+      echo 'Running migrations...' &&
+      dotnet ef migrations script --output /tmp/migration.sql &&
+      psql -h postgres -U postgres -d developerstore -f /tmp/migration.sql &&
+      echo 'Running seed data...' &&
+      psql -h postgres -U postgres -d developerstore -f /docker-entrypoint-initdb.d/seed-data.sql &&
+      echo 'Database setup completed!' &&
+      tail -f /dev/null
+      "
+    restart: on-failure
+
+volumes:
+  postgres-data:
+    driver: local

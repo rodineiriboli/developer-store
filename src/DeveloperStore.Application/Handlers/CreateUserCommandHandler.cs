@@ -25,13 +25,11 @@ namespace DeveloperStore.Application.Handlers
 
         public async Task<UserDto> Handle(CreateUserCommand request, CancellationToken cancellationToken)
         {
-            // Check if email already exists
             if (await _userRepository.ExistsByEmailAsync(request.UserDto.Email))
-                throw new DomainException("Email already exists");
+                throw new DomainException("Email já existe");
 
-            // Check if username already exists
             if (await _userRepository.ExistsByUsernameAsync(request.UserDto.Username))
-                throw new DomainException("Username already exists");
+                throw new DomainException("Username já existe");
 
             var name = new Name(request.UserDto.Name.FirstName, request.UserDto.Name.LastName);
             var geoLocation = new GeoLocation(request.UserDto.Address.GeoLocation.Lat, request.UserDto.Address.GeoLocation.Long);
@@ -50,7 +48,8 @@ namespace DeveloperStore.Application.Handlers
                 address,
                 request.UserDto.Phone,
                 request.UserDto.Status,
-                request.UserDto.Role);
+                request.UserDto.Role
+            );
 
             await _userRepository.AddAsync(user);
             await _unitOfWork.SaveChangesAsync(cancellationToken);
