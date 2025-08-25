@@ -38,10 +38,10 @@ namespace DeveloperStore.Domain.Entities
         public void SetPassword(string password)
         {
             if (string.IsNullOrWhiteSpace(password))
-                throw new DomainException("Senha é obrigatória");
+                throw new DomainException("Password is required");
 
             if (password.Length < 6)
-                throw new DomainException("Senha deve ter pelo menos 6 caracteres");
+                throw new DomainException("Password must be at least 6 characters long");
 
             PasswordHash = HashPassword(password);
         }
@@ -56,7 +56,6 @@ namespace DeveloperStore.Domain.Entities
 
         private string HashPassword(string password)
         {
-            // workFactor = 12 é um bom balance entre segurança e performance
             return BCrypt.Net.BCrypt.HashPassword(password, 12);
         }
 
@@ -84,7 +83,7 @@ namespace DeveloperStore.Domain.Entities
         public void Deactivate()
         {
             if (Status == UserStatus.Inactive)
-                throw new DomainException("Usuário já está inativo");
+                throw new DomainException("User is already inactive");
 
             Status = UserStatus.Inactive;
             AddDomainEvent(new UserDeactivatedEvent(Id));
@@ -93,7 +92,7 @@ namespace DeveloperStore.Domain.Entities
         public void Activate()
         {
             if (Status == UserStatus.Active)
-                throw new DomainException("Usuário já está ativo");
+                throw new DomainException("User is already active");
 
             Status = UserStatus.Active;
             AddDomainEvent(new UserActivatedEvent(Id));
@@ -102,19 +101,19 @@ namespace DeveloperStore.Domain.Entities
         private void Validate()
         {
             if (string.IsNullOrWhiteSpace(Email))
-                throw new DomainException("Email é obrigatório");
+                throw new DomainException("Email is required");
 
             if (string.IsNullOrWhiteSpace(Username))
-                throw new DomainException("Username é obrigatório");
+                throw new DomainException("Username is required");
 
             if (!Email.Contains("@"))
-                throw new DomainException("Formato de email inválido");
+                throw new DomainException("Invalid email format");
 
             if (Name == null)
-                throw new DomainException("Nome é obrigatório");
+                throw new DomainException("Name is required");
 
             if (Address == null)
-                throw new DomainException("Endereço é obrigatório");
+                throw new DomainException("Address is required");
         }
     }
 }
