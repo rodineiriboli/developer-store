@@ -5,7 +5,7 @@ namespace DeveloperStore.Domain.Events
     public class CartCreatedEvent : DomainEventBase
     {
         public Guid CartId { get; }
-        public int UserId { get; }
+        public Guid UserId { get; }
         public DateTime Date { get; }
 
         public CartCreatedEvent(Cart cart)
@@ -29,9 +29,9 @@ namespace DeveloperStore.Domain.Events
     public class CartItemRemovedEvent : DomainEventBase
     {
         public Guid CartId { get; }
-        public int ProductId { get; }
+        public Guid ProductId { get; }
 
-        public CartItemRemovedEvent(Guid cartId, int productId)
+        public CartItemRemovedEvent(Guid cartId, Guid productId)
         {
             CartId = cartId;
             ProductId = productId;

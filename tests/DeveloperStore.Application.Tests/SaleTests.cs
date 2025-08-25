@@ -5,6 +5,7 @@ using Xunit;
 
 namespace DeveloperStore.Application.Tests
 {
+    [Trait("Entity", "Sale")]
     public class SaleTests
     {
         [Theory]
@@ -17,9 +18,9 @@ namespace DeveloperStore.Application.Tests
         public void ApplyDiscounts_ShouldApplyCorrectDiscount(int quantity, decimal expectedDiscountPercentage)
         {
             // Arrange
-            var product = new ProductInfo(1, "Product 1", "Description");
-            var customer = new CustomerInfo(1, "Customer", "customer@email.com");
-            var branch = new BranchInfo(1, "Branch", "Location");
+            var product = new ProductInfo(Guid.NewGuid(), "Product 1", "Description");
+            var customer = new CustomerInfo(Guid.NewGuid(), "Customer", "customer@email.com");
+            var branch = new BranchInfo(Guid.NewGuid(), "Branch", "Location");
 
             var sale = new Sale("SALE-001", DateTime.Now, customer, branch);
             sale.AddItem(product, quantity, 100m);
@@ -36,9 +37,9 @@ namespace DeveloperStore.Application.Tests
         public void AddItem_ShouldThrowException_WhenQuantityExceeds20()
         {
             // Arrange
-            var product = new ProductInfo(1, "Product 1", "Description");
-            var customer = new CustomerInfo(1, "Customer", "customer@email.com");
-            var branch = new BranchInfo(1, "Branch", "Location");
+            var product = new ProductInfo(Guid.NewGuid(), "Product 1", "Description");
+            var customer = new CustomerInfo(Guid.NewGuid(), "Customer", "customer@email.com");
+            var branch = new BranchInfo(Guid.NewGuid(), "Branch", "Location");
 
             var sale = new Sale("SALE-001", DateTime.Now, customer, branch);
 
@@ -50,9 +51,9 @@ namespace DeveloperStore.Application.Tests
         public void AddItem_ShouldUpdateQuantity_WhenProductAlreadyExists()
         {
             // Arrange
-            var product = new ProductInfo(1, "Product 1", "Description");
-            var customer = new CustomerInfo(1, "Customer", "customer@email.com");
-            var branch = new BranchInfo(1, "Branch", "Location");
+            var product = new ProductInfo(Guid.NewGuid(), "Product 1", "Description");
+            var customer = new CustomerInfo(Guid.NewGuid(), "Customer", "customer@email.com");
+            var branch = new BranchInfo(Guid.NewGuid(), "Branch", "Location");
 
             var sale = new Sale("SALE-001", DateTime.Now, customer, branch);
             sale.AddItem(product, 5, 100m);
@@ -70,9 +71,9 @@ namespace DeveloperStore.Application.Tests
         public void Cancel_ShouldMarkAsCancelled_AndRaiseEvent()
         {
             // Arrange
-            var product = new ProductInfo(1, "Product 1", "Description");
-            var customer = new CustomerInfo(1, "Customer", "customer@email.com");
-            var branch = new BranchInfo(1, "Branch", "Location");
+            var product = new ProductInfo(Guid.NewGuid(), "Product 1", "Description");
+            var customer = new CustomerInfo(Guid.NewGuid(), "Customer", "customer@email.com");
+            var branch = new BranchInfo(Guid.NewGuid(), "Branch", "Location");
 
             var sale = new Sale("SALE-001", DateTime.Now, customer, branch);
             sale.AddItem(product, 1, 100m);
@@ -88,15 +89,16 @@ namespace DeveloperStore.Application.Tests
         public void RemoveItem_ShouldRemoveItem_WhenProductExists()
         {
             // Arrange
-            var product = new ProductInfo(1, "Product 1", "Description"); // ProductId é int
-            var customer = new CustomerInfo(1, "Customer", "customer@email.com");
-            var branch = new BranchInfo(1, "Branch", "Location");
+            var productId = Guid.NewGuid();
+            var product = new ProductInfo(productId, "Product productId", "Description"); // ProductId é int
+            var customer = new CustomerInfo(Guid.NewGuid(), "Customer", "customer@email.com");
+            var branch = new BranchInfo(Guid.NewGuid(), "Branch", "Location");
 
             var sale = new Sale("SALE-001", DateTime.Now, customer, branch);
             sale.AddItem(product, 2, 100m);
 
             // Act
-            sale.RemoveItem(1); // Passando int em vez de Guid
+            sale.RemoveItem(productId); // Passando int em vez de Guid
 
             // Assert
             Assert.Empty(sale.Items);

@@ -4,6 +4,7 @@ using Xunit;
 
 namespace DeveloperStore.Domain.Tests.ValueObjects
 {
+    [Trait("ValueObjects", "Rating")]
     public class RatingTests
     {
         [Theory]

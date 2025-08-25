@@ -10,7 +10,7 @@ namespace DeveloperStore.Application.Queries
 
     public class GetCartByUserIdQuery : IRequest<CartDto>
     {
-        public int UserId { get; set; }
+        public Guid UserId { get; set; }
     }
 
     public class GetAllCartsQuery : IRequest<List<CartDto>>

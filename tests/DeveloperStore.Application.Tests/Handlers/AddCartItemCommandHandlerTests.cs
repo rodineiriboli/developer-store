@@ -10,6 +10,7 @@ using Xunit;
 
 namespace DeveloperStore.Application.Tests.Handlers
 {
+    [Trait("CommandHandler", "Cart")]
     public class AddCartItemCommandHandlerTests
     {
         private readonly ICartRepository _cartRepository;
@@ -30,13 +31,14 @@ namespace DeveloperStore.Application.Tests.Handlers
         {
             // Arrange
             var cartId = Guid.NewGuid();
+            var productId = Guid.NewGuid();
             var command = new AddCartItemCommand
             {
                 CartId = cartId,
-                ItemDto = new AddCartItemDto { ProductId = 101, Quantity = 2 }
+                ItemDto = new AddCartItemDto { ProductId = productId, Quantity = 2 }
             };
 
-            var cart = CreateValidCart();
+            var cart = CreateValidCart(cartId);
             _cartRepository.GetByIdAsync(cartId).Returns(cart);
             _cartRepository.UpdateAsync(Arg.Any<Cart>()).Returns(Task.CompletedTask);
             _unitOfWork.SaveChangesAsync(Arg.Any<CancellationToken>()).Returns(1);
@@ -64,9 +66,9 @@ namespace DeveloperStore.Application.Tests.Handlers
                 _handler.Handle(command, CancellationToken.None));
         }
 
-        private Cart CreateValidCart()
+        private Cart CreateValidCart(Guid cartId)
         {
-            var cart = new Cart(1, DateTime.Now);
+            var cart = new Cart(cartId, DateTime.Now);
             return cart;
         }
     }

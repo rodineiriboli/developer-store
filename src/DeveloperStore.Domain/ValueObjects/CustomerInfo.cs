@@ -4,11 +4,11 @@ namespace DeveloperStore.Domain.ValueObjects
 {
     public class CustomerInfo : ValueObject
     {
-        public int CustomerId { get; }
+        public Guid CustomerId { get; }
         public string Name { get; }
         public string Email { get; }
 
-        public CustomerInfo(int customerId, string name, string email)
+        public CustomerInfo(Guid customerId, string name, string email)
         {
             CustomerId = customerId;
             Name = name;

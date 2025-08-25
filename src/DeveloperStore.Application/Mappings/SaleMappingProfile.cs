@@ -5,9 +5,9 @@ using DeveloperStore.Domain.ValueObjects;
 
 namespace DeveloperStore.Application.Mappings
 {
-    public class MappingProfile : Profile
+    public class SaleMappingProfile : Profile
     {
-        public MappingProfile()
+        public SaleMappingProfile()
         {
             CreateMap<Sale, SaleDto>()
                 .ForMember(dest => dest.Items, opt => opt.MapFrom(src => src.Items));

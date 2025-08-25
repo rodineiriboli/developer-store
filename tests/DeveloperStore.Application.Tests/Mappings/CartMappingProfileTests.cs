@@ -6,6 +6,7 @@ using Xunit;
 
 namespace DeveloperStore.Application.Tests.Mappings
 {
+    [Trait("Mapping", "Cart")]
     public class CartMappingProfileTests
     {
         private readonly IMapper _mapper;
@@ -24,9 +25,13 @@ namespace DeveloperStore.Application.Tests.Mappings
         public void ShouldMapCartToCartDto()
         {
             // Arrange
-            var cart = new Cart(1, DateTime.Now);
-            cart.AddProduct(101, 2);
-            cart.AddProduct(102, 1);
+            var cartId =  Guid.NewGuid();
+            var productId1 = Guid.NewGuid();
+            var productId2 = Guid.NewGuid();
+
+            var cart = new Cart(cartId, DateTime.Now);
+            cart.AddProduct(productId1, 2);
+            cart.AddProduct(productId2, 1);
 
             // Act
             var cartDto = _mapper.Map<CartDto>(cart);
@@ -41,7 +46,8 @@ namespace DeveloperStore.Application.Tests.Mappings
         public void ShouldMapCartItemToCartItemDto()
         {
             // Arrange
-            var cartItem = new CartItem(101, 2);
+            var cartId = Guid.NewGuid();
+            var cartItem = new CartItem(cartId, 2);
 
             // Act
             var cartItemDto = _mapper.Map<CartItemDto>(cartItem);

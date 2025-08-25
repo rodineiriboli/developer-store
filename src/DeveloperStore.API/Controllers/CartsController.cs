@@ -36,7 +36,7 @@ namespace DeveloperStore.API.Controllers
         }
 
         [HttpGet("user/{userId}")]
-        public async Task<ActionResult<CartDto>> GetCartByUserId(int userId)
+        public async Task<ActionResult<CartDto>> GetCartByUserId(Guid userId)
         {
             var query = new GetCartByUserIdQuery { UserId = userId };
             var cart = await _mediator.Send(query);
@@ -94,7 +94,7 @@ namespace DeveloperStore.API.Controllers
         }
 
         [HttpPut("{id}/items/{productId}")]
-        public async Task<ActionResult<CartDto>> UpdateCartItem(Guid id, int productId, [FromBody] UpdateCartItemDto updateItemDto)
+        public async Task<ActionResult<CartDto>> UpdateCartItem(Guid id, Guid productId, [FromBody] UpdateCartItemDto updateItemDto)
         {
             var command = new UpdateCartItemCommand
             {
@@ -107,7 +107,7 @@ namespace DeveloperStore.API.Controllers
         }
 
         [HttpDelete("{id}/items/{productId}")]
-        public async Task<ActionResult<CartDto>> RemoveCartItem(Guid id, int productId)
+        public async Task<ActionResult<CartDto>> RemoveCartItem(Guid id, Guid productId)
         {
             var command = new RemoveCartItemCommand { CartId = id, ProductId = productId };
             var cart = await _mediator.Send(command);

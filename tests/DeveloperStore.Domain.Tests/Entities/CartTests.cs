@@ -4,16 +4,18 @@ using Xunit;
 
 namespace DeveloperStore.Domain.Tests.Entities
 {
+    [Trait("Entity", "Cart")]
     public class CartTests
     {
         [Fact]
         public void Constructor_ShouldCreateCart_WithValidParameters()
         {
             // Arrange & Act
-            var cart = new Cart(1, DateTime.Now);
+            var userId = Guid.NewGuid();
+            var cart = new Cart(userId, DateTime.Now);
 
             // Assert
-            Assert.Equal(1, cart.UserId);
+            Assert.Equal(userId, cart.UserId);
             Assert.NotNull(cart.Products);
             Assert.Empty(cart.Products);
         }
@@ -22,14 +24,16 @@ namespace DeveloperStore.Domain.Tests.Entities
         public void AddProduct_ShouldAddProduct_WhenQuantityIsValid()
         {
             // Arrange
-            var cart = new Cart(1, DateTime.Now);
+            var userId = Guid.NewGuid();
+            var productId = Guid.NewGuid();
+            var cart = new Cart(userId, DateTime.Now);
 
             // Act
-            cart.AddProduct(101, 2);
+            cart.AddProduct(productId, 2);
 
             // Assert
             Assert.Single(cart.Products);
-            Assert.Equal(101, cart.Products.First().ProductId);
+            Assert.Equal(productId, cart.Products.First().ProductId);
             Assert.Equal(2, cart.Products.First().Quantity);
         }
 
@@ -37,15 +41,17 @@ namespace DeveloperStore.Domain.Tests.Entities
         public void AddProduct_ShouldUpdateQuantity_WhenProductAlreadyExists()
         {
             // Arrange
-            var cart = new Cart(1, DateTime.Now);
-            cart.AddProduct(101, 2);
+            var cartId = Guid.NewGuid();
+            var productId = Guid.NewGuid();
+            var cart = new Cart(cartId, DateTime.Now);
+            cart.AddProduct(productId, 2);
 
             // Act
-            cart.AddProduct(101, 3);
+            cart.AddProduct(productId, 3);
 
             // Assert
             Assert.Single(cart.Products);
-            Assert.Equal(101, cart.Products.First().ProductId);
+            Assert.Equal(productId, cart.Products.First().ProductId);
             Assert.Equal(5, cart.Products.First().Quantity);
         }
 
@@ -55,21 +61,25 @@ namespace DeveloperStore.Domain.Tests.Entities
         public void AddProduct_ShouldThrowException_WhenQuantityIsInvalid(int invalidQuantity)
         {
             // Arrange
-            var cart = new Cart(1, DateTime.Now);
+            var cartId = Guid.NewGuid();
+            var productId = Guid.NewGuid();
+            var cart = new Cart(cartId, DateTime.Now);
 
             // Act & Assert
-            Assert.Throws<DomainException>(() => cart.AddProduct(101, invalidQuantity));
+            Assert.Throws<DomainException>(() => cart.AddProduct(productId, invalidQuantity));
         }
 
         [Fact]
         public void UpdateProductQuantity_ShouldUpdateQuantity_WhenProductExists()
         {
             // Arrange
-            var cart = new Cart(1, DateTime.Now);
-            cart.AddProduct(101, 2);
+            var cartId = Guid.NewGuid();
+            var productId = Guid.NewGuid();
+            var cart = new Cart(cartId, DateTime.Now);
+            cart.AddProduct(productId, 2);
 
             // Act
-            cart.UpdateProductQuantity(101, 5);
+            cart.UpdateProductQuantity(productId, 5);
 
             // Assert
             Assert.Equal(5, cart.Products.First().Quantity);
@@ -79,37 +89,44 @@ namespace DeveloperStore.Domain.Tests.Entities
         public void UpdateProductQuantity_ShouldThrowException_WhenProductNotFound()
         {
             // Arrange
-            var cart = new Cart(1, DateTime.Now);
+            var cartId = Guid.NewGuid();
+            var productId = Guid.NewGuid();
+            var cart = new Cart(cartId, DateTime.Now);
 
             // Act & Assert
-            Assert.Throws<DomainException>(() => cart.UpdateProductQuantity(999, 5));
+            Assert.Throws<DomainException>(() => cart.UpdateProductQuantity(productId, 5));
         }
 
         [Fact]
         public void RemoveProduct_ShouldRemoveProduct_WhenProductExists()
         {
             // Arrange
-            var cart = new Cart(1, DateTime.Now);
-            cart.AddProduct(101, 2);
-            cart.AddProduct(102, 1);
+            var cartId = Guid.NewGuid();
+            var productId = Guid.NewGuid();
+            var productId2 = Guid.NewGuid();
+            var cart = new Cart(cartId, DateTime.Now);
+            cart.AddProduct(productId, 2);
+            cart.AddProduct(productId2, 1);
 
             // Act
-            cart.RemoveProduct(101);
+            cart.RemoveProduct(productId);
 
             // Assert
             Assert.Single(cart.Products);
-            Assert.Equal(102, cart.Products.First().ProductId);
+            Assert.Equal(productId2, cart.Products.First().ProductId);
         }
 
         [Fact]
         public void RemoveProduct_ShouldDoNothing_WhenProductNotExists()
         {
             // Arrange
-            var cart = new Cart(1, DateTime.Now);
-            cart.AddProduct(101, 2);
+            var cartId = Guid.NewGuid();
+            var productId = Guid.NewGuid();
+            var cart = new Cart(cartId, DateTime.Now);
+            cart.AddProduct(productId, 2);
 
             // Act
-            cart.RemoveProduct(999); // Non-existent product
+            cart.RemoveProduct(Guid.NewGuid()); // Non-existent product
 
             // Assert
             Assert.Single(cart.Products); // Should still have the original product
@@ -119,10 +136,11 @@ namespace DeveloperStore.Domain.Tests.Entities
         public void ClearCart_ShouldRemoveAllProducts()
         {
             // Arrange
-            var cart = new Cart(1, DateTime.Now);
-            cart.AddProduct(101, 2);
-            cart.AddProduct(102, 1);
-            cart.AddProduct(103, 3);
+            var cartId = Guid.NewGuid();
+            var cart = new Cart(cartId, DateTime.Now);
+            cart.AddProduct(Guid.NewGuid(), 2);
+            cart.AddProduct(Guid.NewGuid(), 1);
+            cart.AddProduct(Guid.NewGuid(), 3);
 
             // Act
             cart.ClearCart();
@@ -135,11 +153,13 @@ namespace DeveloperStore.Domain.Tests.Entities
         public void ContainsProduct_ShouldReturnTrue_WhenProductExists()
         {
             // Arrange
-            var cart = new Cart(1, DateTime.Now);
-            cart.AddProduct(101, 2);
+            var cartId = Guid.NewGuid();
+            var productId = Guid.NewGuid();
+            var cart = new Cart(cartId, DateTime.Now);
+            cart.AddProduct(productId, 2);
 
             // Act
-            var contains = cart.ContainsProduct(101);
+            var contains = cart.ContainsProduct(productId);
 
             // Assert
             Assert.True(contains);
@@ -149,11 +169,13 @@ namespace DeveloperStore.Domain.Tests.Entities
         public void ContainsProduct_ShouldReturnFalse_WhenProductNotExists()
         {
             // Arrange
-            var cart = new Cart(1, DateTime.Now);
-            cart.AddProduct(101, 2);
+            var cartId = Guid.NewGuid();
+            var productId = Guid.NewGuid();
+            var cart = new Cart(cartId, DateTime.Now);
+            cart.AddProduct(productId, 2);
 
             // Act
-            var contains = cart.ContainsProduct(999);
+            var contains = cart.ContainsProduct(Guid.NewGuid());
 
             // Assert
             Assert.False(contains);
@@ -163,11 +185,13 @@ namespace DeveloperStore.Domain.Tests.Entities
         public void GetProductQuantity_ShouldReturnQuantity_WhenProductExists()
         {
             // Arrange
-            var cart = new Cart(1, DateTime.Now);
-            cart.AddProduct(101, 2);
+            var cartId = Guid.NewGuid();
+            var productId = Guid.NewGuid();
+            var cart = new Cart(cartId, DateTime.Now);
+            cart.AddProduct(productId, 2);
 
             // Act
-            var quantity = cart.GetProductQuantity(101);
+            var quantity = cart.GetProductQuantity(productId);
 
             // Assert
             Assert.Equal(2, quantity);
@@ -177,10 +201,12 @@ namespace DeveloperStore.Domain.Tests.Entities
         public void GetProductQuantity_ShouldReturnZero_WhenProductNotExists()
         {
             // Arrange
-            var cart = new Cart(1, DateTime.Now);
+            var cartId = Guid.NewGuid();
+            var productId = Guid.NewGuid();
+            var cart = new Cart(cartId, DateTime.Now);
 
             // Act
-            var quantity = cart.GetProductQuantity(999);
+            var quantity = cart.GetProductQuantity(productId);
 
             // Assert
             Assert.Equal(0, quantity);

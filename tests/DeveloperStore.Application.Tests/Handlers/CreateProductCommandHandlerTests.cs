@@ -12,6 +12,7 @@ using Xunit;
 
 namespace DeveloperStore.Application.Tests.Handlers
 {
+    [Trait("CommandHandler", "Product")]
     public class CreateProductCommandHandlerTests
     {
         private readonly IProductRepository _productRepository;

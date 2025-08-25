@@ -4,6 +4,7 @@ using Xunit;
 
 namespace DeveloperStore.Application.Tests.Services
 {
+    [Trait("Service", "Email")]
     public class EmailServiceTests
     {
         private readonly EmailService _emailService;

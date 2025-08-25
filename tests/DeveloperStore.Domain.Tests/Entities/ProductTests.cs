@@ -5,6 +5,7 @@ using Xunit;
 
 namespace DeveloperStore.Domain.Tests.Entities
 {
+    [Trait("Entity", "Product")]
     public class ProductTests
     {
         private readonly Rating _validRating;

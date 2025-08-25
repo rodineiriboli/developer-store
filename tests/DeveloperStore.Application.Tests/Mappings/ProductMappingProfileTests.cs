@@ -7,6 +7,7 @@ using Xunit;
 
 namespace DeveloperStore.Application.Tests.Mappings
 {
+    [Trait("Mapping", "Product")]
     public class ProductMappingProfileTests
     {
         private readonly IMapper _mapper;

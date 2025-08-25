@@ -10,6 +10,7 @@ using DeveloperStore.Application.DTOs;
 
 namespace DeveloperStore.Application.Tests.Handlers
 {
+    [Trait("CommandHandler", "Product")]
     public class GetAllProductsQueryHandlerTests
     {
         private readonly IProductRepository _productRepository;

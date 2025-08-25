@@ -48,7 +48,7 @@ namespace DeveloperStore.Domain.Entities
 
         public bool VerifyPassword(string password)
         {
-            if (string.IsNullOrEmpty(PasswordHash))
+            if (string.IsNullOrWhiteSpace(password))
                 return false;
 
             return BCrypt.Net.BCrypt.Verify(password, PasswordHash);

@@ -9,6 +9,7 @@ using DeveloperStore.Application.DTOs;
 
 namespace DeveloperStore.Application.Tests.Handlers
 {
+    [Trait("CommandHandler", "Cart")]
     public class GetCartByUserIdQueryHandlerTests
     {
         private readonly ICartRepository _cartRepository;
@@ -26,7 +27,7 @@ namespace DeveloperStore.Application.Tests.Handlers
         public async Task Handle_ShouldReturnCart_WhenCartExistsForUser()
         {
             // Arrange
-            var userId = 1;
+            var userId = Guid.NewGuid();
             var query = new GetCartByUserIdQuery { UserId = userId };
 
             var cart = CreateValidCart();
@@ -45,8 +46,8 @@ namespace DeveloperStore.Application.Tests.Handlers
         public async Task Handle_ShouldThrowException_WhenCartNotFoundForUser()
         {
             // Arrange
-            var query = new GetCartByUserIdQuery { UserId = 999 };
-            _cartRepository.GetByUserIdAsync(Arg.Any<int>()).Returns((Cart)null);
+            var query = new GetCartByUserIdQuery { UserId = Guid.NewGuid() };
+            _cartRepository.GetByUserIdAsync(Arg.Any<Guid>()).Returns((Cart)null);
 
             // Act & Assert
             await Assert.ThrowsAsync<KeyNotFoundException>(() =>
@@ -55,8 +56,8 @@ namespace DeveloperStore.Application.Tests.Handlers
 
         private Cart CreateValidCart()
         {
-            var cart = new Cart(1, DateTime.Now);
-            cart.AddProduct(101, 2);
+            var cart = new Cart(Guid.NewGuid(), DateTime.Now);
+            cart.AddProduct(Guid.NewGuid(), 2);
             return cart;
         }
     }

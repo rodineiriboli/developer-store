@@ -29,7 +29,7 @@ namespace DeveloperStore.Infrastructure.Data.Repositories
                 .ToListAsync();
         }
 
-        public async Task<List<Sale>> GetByCustomerAsync(int customerId, int page, int pageSize)
+        public async Task<List<Sale>> GetByCustomerAsync(Guid customerId, int page, int pageSize)
         {
             return await _context.Sales
                 .Include(s => s.Items)

@@ -87,7 +87,7 @@ namespace DeveloperStore.Domain.Entities
             AddDomainEvent(new SaleCancelledEvent(this));
         }
 
-        public void RemoveItem(int productId) // Alterado de Guid para int
+        public void RemoveItem(Guid productId) // Alterado de Guid para int
         {
             var item = _items.FirstOrDefault(i => i.Product.ProductId == productId); // Agora compara int com int
             if (item != null)
@@ -100,13 +100,13 @@ namespace DeveloperStore.Domain.Entities
         }
 
         // Método adicional para obter um item específico
-        public SaleItem GetItem(int productId)
+        public SaleItem GetItem(Guid productId)
         {
             return _items.FirstOrDefault(i => i.Product.ProductId == productId);
         }
 
         // Método para atualizar a quantidade de um item existente
-        public void UpdateItemQuantity(int productId, int newQuantity)
+        public void UpdateItemQuantity(Guid productId, int newQuantity)
         {
             if (IsCancelled)
                 throw new DomainException("Cannot update items in a cancelled sale");

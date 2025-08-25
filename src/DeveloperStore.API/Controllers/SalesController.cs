@@ -52,7 +52,7 @@ namespace DeveloperStore.API.Controllers
         }
 
         [HttpDelete("{saleId}/items/{productId}")]
-        public async Task<ActionResult<SaleDto>> RemoveItem(Guid saleId, int productId)
+        public async Task<ActionResult<SaleDto>> RemoveItem(Guid saleId, Guid productId)
         {
             var command = new RemoveItemCommand { SaleId = saleId, ProductId = productId };
             var sale = await _mediator.Send(command);

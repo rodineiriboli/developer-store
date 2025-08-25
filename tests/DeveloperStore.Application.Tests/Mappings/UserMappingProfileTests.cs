@@ -8,6 +8,7 @@ using Xunit;
 
 namespace DeveloperStore.Application.Tests.Mappings
 {
+    [Trait("Mapping", "User")]
     public class UserMappingProfileTests
     {
         private readonly IMapper _mapper;

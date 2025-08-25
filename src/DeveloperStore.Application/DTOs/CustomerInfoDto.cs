@@ -2,7 +2,7 @@
 {
     public class CustomerInfoDto
     {
-        public int CustomerId { get; set; }
+        public Guid CustomerId { get; set; }
         public string Name { get; set; }
         public string Email { get; set; }
     }

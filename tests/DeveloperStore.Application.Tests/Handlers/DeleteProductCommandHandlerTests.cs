@@ -11,6 +11,7 @@ using Xunit;
 
 namespace DeveloperStore.Application.Tests.Handlers
 {
+    [Trait("CommandHandler", "Product")]
     public class DeleteProductCommandHandlerTests
     {
         private readonly IProductRepository _productRepository;

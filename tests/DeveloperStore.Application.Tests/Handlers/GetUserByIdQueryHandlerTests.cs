@@ -10,6 +10,7 @@ using DeveloperStore.Application.DTOs;
 
 namespace DeveloperStore.Application.Tests.Handlers
 {
+    [Trait("CommandHandler", "User")]
     public class GetUserByIdQueryHandlerTests
     {
         private readonly IUserRepository _userRepository;

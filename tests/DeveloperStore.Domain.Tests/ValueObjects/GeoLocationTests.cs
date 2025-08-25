@@ -3,6 +3,7 @@ using Xunit;
 
 namespace DeveloperStore.Domain.Tests.ValueObjects
 {
+    [Trait("ValueObjects", "GeoLocation")]
     public class GeoLocationTests
     {
         [Fact]

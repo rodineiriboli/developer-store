@@ -28,14 +28,14 @@ namespace DeveloperStore.Application.Commands
     public class UpdateCartItemCommand : IRequest<CartDto>
     {
         public Guid CartId { get; set; }
-        public int ProductId { get; set; }
+        public Guid ProductId { get; set; }
         public UpdateCartItemDto ItemDto { get; set; }
     }
 
     public class RemoveCartItemCommand : IRequest<CartDto>
     {
         public Guid CartId { get; set; }
-        public int ProductId { get; set; }
+        public Guid ProductId { get; set; }
     }
 
     public class ClearCartCommand : IRequest<CartDto>

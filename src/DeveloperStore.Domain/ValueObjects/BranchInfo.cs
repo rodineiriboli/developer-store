@@ -4,11 +4,11 @@ namespace DeveloperStore.Domain.ValueObjects
 {
     public class BranchInfo : ValueObject
     {
-        public int BranchId { get; }
+        public Guid BranchId { get; }
         public string Name { get; }
         public string Location { get; }
 
-        public BranchInfo(int branchId, string name, string location)
+        public BranchInfo(Guid branchId, string name, string location)
         {
             BranchId = branchId;
             Name = name;

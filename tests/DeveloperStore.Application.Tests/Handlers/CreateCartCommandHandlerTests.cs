@@ -11,6 +11,7 @@ using Xunit;
 
 namespace DeveloperStore.Application.Tests.Handlers
 {
+    [Trait("CommandHandler", "Cart")]
     public class CreateCartCommandHandlerTests
     {
         private readonly ICartRepository _cartRepository;
@@ -34,17 +35,17 @@ namespace DeveloperStore.Application.Tests.Handlers
             {
                 CartDto = new CreateCartDto
                 {
-                    UserId = 1,
+                    UserId = Guid.NewGuid(),
                     Date = DateTime.Now,
                     Products = new List<CartItemDto>
                     {
-                        new CartItemDto { ProductId = 101, Quantity = 2 },
-                        new CartItemDto { ProductId = 102, Quantity = 1 }
+                        new CartItemDto { ProductId = Guid.NewGuid(), Quantity = 2 },
+                        new CartItemDto { ProductId = Guid.NewGuid(), Quantity = 1 }
                     }
                 }
             };
 
-            _cartRepository.ExistsForUserAsync(Arg.Any<int>()).Returns(false);
+            _cartRepository.ExistsForUserAsync(Arg.Any<Guid> ()).Returns(false);
             _cartRepository.AddAsync(Arg.Any<Cart>()).Returns(Task.CompletedTask);
             _unitOfWork.SaveChangesAsync(Arg.Any<CancellationToken>()).Returns(1);
 
@@ -64,12 +65,13 @@ namespace DeveloperStore.Application.Tests.Handlers
         public async Task Handle_ShouldThrowException_WhenUserAlreadyHasCart()
         {
             // Arrange
+            var userId = Guid.NewGuid();
             var command = new CreateCartCommand
             {
-                CartDto = new CreateCartDto { UserId = 1 }
+                CartDto = new CreateCartDto { UserId = userId }
             };
 
-            _cartRepository.ExistsForUserAsync(Arg.Any<int>()).Returns(true);
+            _cartRepository.ExistsForUserAsync(Arg.Any<Guid>()).Returns(true);
 
             // Act & Assert
             await Assert.ThrowsAsync<DomainException>(() =>
@@ -78,7 +80,7 @@ namespace DeveloperStore.Application.Tests.Handlers
 
         private Cart CreateValidCart()
         {
-            var cart = new Cart(1, DateTime.Now);
+            var cart = new Cart(Guid.NewGuid(), DateTime.Now);
             return cart;
         }
     }

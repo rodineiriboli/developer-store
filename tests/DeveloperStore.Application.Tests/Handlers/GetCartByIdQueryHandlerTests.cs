@@ -9,6 +9,7 @@ using DeveloperStore.Application.DTOs;
 
 namespace DeveloperStore.Application.Tests.Handlers
 {
+    [Trait("CommandHandler", "Cart")]
     public class GetCartByIdQueryHandlerTests
     {
         private readonly ICartRepository _cartRepository;
@@ -29,7 +30,7 @@ namespace DeveloperStore.Application.Tests.Handlers
             var cartId = Guid.NewGuid();
             var query = new GetCartByIdQuery { CartId = cartId };
 
-            var cart = CreateValidCart();
+            var cart = CreateValidCart(cartId);
             _cartRepository.GetByIdAsync(cartId).Returns(cart);
             _mapper.Map<CartDto>(cart).Returns(new CartDto { Id = cartId });
 
@@ -53,10 +54,10 @@ namespace DeveloperStore.Application.Tests.Handlers
                 _handler.Handle(query, CancellationToken.None));
         }
 
-        private Cart CreateValidCart()
+        private Cart CreateValidCart(Guid cartId)
         {
-            var cart = new Cart(1, DateTime.Now);
-            cart.AddProduct(101, 2);
+            var cart = new Cart(cartId, DateTime.Now);
+            cart.AddProduct(Guid.NewGuid(), 2);
             return cart;
         }
     }

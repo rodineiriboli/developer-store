@@ -8,14 +8,14 @@ namespace DeveloperStore.Domain.Entities
 {
     public class Cart : EntityBase, IAggregateRoot
     {
-        public int UserId { get; private set; }
+        public Guid UserId { get; private set; }
         public DateTime Date { get; private set; }
         private readonly List<CartItem> _products = new();
         public IReadOnlyCollection<CartItem> Products => _products.AsReadOnly();
 
         private Cart() { } // For EF
 
-        public Cart(int userId, DateTime date)
+        public Cart(Guid userId, DateTime date)
         {
             UserId = userId;
             Date = date;
@@ -23,7 +23,7 @@ namespace DeveloperStore.Domain.Entities
             AddDomainEvent(new CartCreatedEvent(this));
         }
 
-        public void AddProduct(int productId, int quantity)
+        public void AddProduct(Guid productId, int quantity)
         {
             if (quantity <= 0)
                 throw new DomainException("Quantity must be greater than zero");
@@ -42,7 +42,7 @@ namespace DeveloperStore.Domain.Entities
             AddDomainEvent(new CartModifiedEvent(Id));
         }
 
-        public void UpdateProductQuantity(int productId, int quantity)
+        public void UpdateProductQuantity(Guid productId, int quantity)
         {
             if (quantity <= 0)
                 throw new DomainException("Quantity must be greater than zero");
@@ -55,7 +55,7 @@ namespace DeveloperStore.Domain.Entities
             AddDomainEvent(new CartModifiedEvent(Id));
         }
 
-        public void RemoveProduct(int productId)
+        public void RemoveProduct(Guid productId)
         {
             var item = _products.FirstOrDefault(p => p.ProductId == productId);
             if (item != null)
@@ -72,12 +72,12 @@ namespace DeveloperStore.Domain.Entities
             AddDomainEvent(new CartModifiedEvent(Id));
         }
 
-        public bool ContainsProduct(int productId)
+        public bool ContainsProduct(Guid productId)
         {
             return _products.Any(p => p.ProductId == productId);
         }
 
-        public int GetProductQuantity(int productId)
+        public int GetProductQuantity(Guid productId)
         {
             return _products.FirstOrDefault(p => p.ProductId == productId)?.Quantity ?? 0;
         }
@@ -85,12 +85,12 @@ namespace DeveloperStore.Domain.Entities
 
     public class CartItem : EntityBase
     {
-        public int ProductId { get; private set; }
+        public Guid ProductId { get; private set; }
         public int Quantity { get; private set; }
 
         private CartItem() { } // For EF
 
-        public CartItem(int productId, int quantity)
+        public CartItem(Guid productId, int quantity)
         {
             ProductId = productId;
             Quantity = quantity;

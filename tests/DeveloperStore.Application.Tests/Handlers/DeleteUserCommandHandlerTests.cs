@@ -11,6 +11,7 @@ using Xunit;
 
 namespace DeveloperStore.Application.Tests.Handlers
 {
+    [Trait("CommandHandler", "User")]
     public class DeleteUserCommandHandlerTests
     {
         private readonly IUserRepository _userRepository;

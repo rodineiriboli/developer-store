@@ -10,6 +10,7 @@ using Xunit;
 
 namespace DeveloperStore.Application.Tests.Handlers
 {
+    [Trait("CommandHandler", "Auth")]
     public class LoginCommandHandlerTests
     {
         private readonly IAuthService _authService;

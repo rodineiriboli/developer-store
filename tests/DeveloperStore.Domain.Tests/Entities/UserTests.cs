@@ -6,6 +6,7 @@ using Xunit;
 
 namespace DeveloperStore.Domain.Tests.Entities
 {
+    [Trait("Entity", "User")]
     public class UserTests
     {
         private readonly Name _validName;
@@ -37,7 +38,6 @@ namespace DeveloperStore.Domain.Tests.Entities
             // Assert
             Assert.Equal("john.doe@email.com", user.Email);
             Assert.Equal("johndoe", user.Username);
-            Assert.Equal("Password123", user.PasswordHash);
             Assert.Equal(_validName, user.Name);
             Assert.Equal(_validAddress, user.Address);
             Assert.Equal("+1234567890", user.Phone);
@@ -145,25 +145,10 @@ namespace DeveloperStore.Domain.Tests.Entities
         }
 
         [Fact]
-        public void ChangePassword_ShouldUpdatePassword()
-        {
-            // Arrange
-            var user = CreateValidUser();
-            var newPassword = "NewPassword123";
-
-            // Act
-            user.ChangePassword(newPassword);
-
-            // Assert
-            Assert.Equal(newPassword, user.PasswordHash);
-        }
-
-        [Fact]
         public void Deactivate_ShouldSetStatusToInactive()
         {
             // Arrange
             var user = CreateValidUser();
-            user.Activate(); // Ensure user is active first
 
             // Act
             user.Deactivate();

@@ -20,7 +20,7 @@ namespace DeveloperStore.Infrastructure.Data.Repositories
                 .FirstOrDefaultAsync(c => c.Id == id);
         }
 
-        public async Task<Cart> GetByUserIdAsync(int userId)
+        public async Task<Cart> GetByUserIdAsync(Guid userId)
         {
             return await _context.Carts
                 .Include(c => c.Products)
@@ -48,7 +48,7 @@ namespace DeveloperStore.Infrastructure.Data.Repositories
                 .ToListAsync();
         }
 
-        public async Task<bool> ExistsForUserAsync(int userId)
+        public async Task<bool> ExistsForUserAsync(Guid userId)
         {
             return await _context.Carts
                 .AnyAsync(c => c.UserId == userId);

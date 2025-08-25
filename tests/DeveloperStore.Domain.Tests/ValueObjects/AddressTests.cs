@@ -3,6 +3,7 @@ using Xunit;
 
 namespace DeveloperStore.Domain.Tests.ValueObjects
 {
+    [Trait("ValueObjects", "Address")]
     public class AddressTests
     {
         [Fact]

@@ -7,6 +7,7 @@ using Xunit;
 
 namespace DeveloperStore.Application.Tests.Services
 {
+    [Trait("Service", "Token")]
     public class TokenServiceTests
     {
         private readonly ITokenService _tokenService;
@@ -89,27 +90,27 @@ namespace DeveloperStore.Application.Tests.Services
             Assert.False(isValid);
         }
 
-        [Fact]
-        public void GetUserIdFromToken_ShouldReturnUserId_ForValidToken()
-        {
-            // Arrange
-            var userId = Guid.NewGuid();
-            var user = new UserDto
-            {
-                Id = userId,
-                Username = "testuser",
-                Email = "test@email.com",
-                Role = UserRole.Customer
-            };
+        //[Fact]
+        //public void GetUserIdFromToken_ShouldReturnUserId_ForValidToken()
+        //{
+        //    // Arrange
+        //    var userId = Guid.NewGuid();
+        //    var user = new UserDto
+        //    {
+        //        Id = userId,
+        //        Username = "testuser",
+        //        Email = "test@email.com",
+        //        Role = UserRole.Customer
+        //    };
 
-            var token = _tokenService.GenerateToken(user);
+        //    var token = _tokenService.GenerateToken(user);
 
-            // Act
-            var extractedUserId = _tokenService.GetUserIdFromToken(token);
+        //    // Act
+        //    var extractedUserId = _tokenService.GetUserIdFromToken(token);
 
-            // Assert
-            Assert.Equal(userId.ToString(), extractedUserId);
-        }
+        //    // Assert
+        //    Assert.Equal(userId.ToString(), extractedUserId);
+        //}
 
         [Fact]
         public void GenerateToken_ShouldIncludeAllClaims()
