@@ -12,12 +12,14 @@ namespace DeveloperStore.Application.Tests.Handlers
     public class ChangePasswordCommandHandlerTests
     {
         private readonly IAuthService _authService;
+        private readonly IUnitOfWork _unitOfWork;
         private readonly ChangePasswordCommandHandler _handler;
 
         public ChangePasswordCommandHandlerTests()
         {
             _authService = Substitute.For<IAuthService>();
-            _handler = new ChangePasswordCommandHandler(_authService);
+            _unitOfWork = Substitute.For<IUnitOfWork>();
+            _handler = new ChangePasswordCommandHandler(_authService, _unitOfWork);
         }
 
         [Fact]
